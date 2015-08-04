@@ -36,11 +36,11 @@
 	</div>
 	
 	
-	{{-- <div class="form-group">
+	<div class="form-group">
 		
-		{!! link_to_action('Auth\PasswordController@getReset','Forgot Your Password?')!!}
+		{!! link_to_action('Auth\PasswordController@getEmail','Forgot Your Password?')!!}
 		
-	</div> --}}
+	</div>
 	
 	
 	<!-- Submit Button -->

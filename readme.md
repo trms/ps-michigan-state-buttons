@@ -1,3 +1,11 @@
+This project is designed to create a simple interface for buttons that trigger alert content to play.  
+Each button you create in the admin panel at http://{carousel_server}/buttons/admin will have a length (of time), a title, and a 'tag'.  The tag corresponds to bulletin tags in carousel.
+bulletins should be created, scheduled, and have their week days set to no days active then tagged with the appropriate tag.
+the system will activate all weekdays and set alert status to on when a button is pressed, then pause for 'length' number of seconds before turning off that tag's weekdays again.
+
+the system has a login feature and a password reminder feature
+
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
