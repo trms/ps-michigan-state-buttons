@@ -62,7 +62,7 @@
 				
 				{!! Form::label('tag','Bulletin Tag') !!}
 				
-				{!! Form::text('tag','',['class' => 'form-control','placeholder'=>'required'] ) !!}
+				{!! Form::text('tag','',['class' => 'form-control','placeholder'=>'required and make sure its unique per screen'] ) !!}
 			
 			</div>
 			
