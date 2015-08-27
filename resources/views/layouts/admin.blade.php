@@ -6,7 +6,7 @@
     <title>Founders Admin Panel</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/bootstrap.css') !!}">
-    <link rel="stylesheet" href="{!! asset('css/sb-admin-2.css') !!}">
+    {{-- <link rel="stylesheet" href="{!! asset('css/sb-admin-2.css') !!}"> --}}
     <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/admin.css') !!}">
     <script src="{!! asset('js/all.js') !!}"></script>

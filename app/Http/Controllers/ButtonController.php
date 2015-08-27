@@ -17,7 +17,8 @@ class ButtonController extends Controller
      */
     public function index()
     {
-        $buttons = Button::orderBy('order')->get();
+
+        $buttons = Button::orderBy('screen')->orderBy('order')->get();
 
         return view()->make('button.index')->with(['buttons'=>$buttons]);
     }

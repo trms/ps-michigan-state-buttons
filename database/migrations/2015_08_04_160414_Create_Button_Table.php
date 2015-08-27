@@ -14,6 +14,7 @@ class CreateButtonTable extends Migration
     {
         Schema::create('buttons',function(Blueprint $table){
             $table->increments('id');
+            $table->string('screen');
             $table->integer('length');
             $table->string('tag');
             $table->string('title');

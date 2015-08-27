@@ -15,10 +15,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function () 
+Route::get('/', function (Request $request) 
 {
 
-	$buttons = Button::orderBy('order')->get();
+	$screen = $request->input('screen')?:'1';
+
+    $buttons = Button::where('screen','=',$screen)->orderBy('order')->get();
 
 	$marginLeft =  (100 - ($buttons->count() * 7))/ $buttons->count();
 

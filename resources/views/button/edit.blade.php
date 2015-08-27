@@ -46,7 +46,7 @@
 		
 		<!-- Form Input -->
 		
-		<div class="form-group">
+		
 			
 			
 			
@@ -92,8 +92,8 @@
 				
 				{!! Form::text('order',$button->order,['class' => 'form-control','placeholder'=>'alphanumeric'] ) !!}
 			
+			</div>
 		
-		</div>
 		
 		
 		

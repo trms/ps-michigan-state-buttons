@@ -42,10 +42,11 @@
 		
 		<thead>
 			<tr>
-				<th>Button Title</th>
+				<th>Title</th>
+				<th>Screen</th>
 				<th>Bulletin Tag</th>
 				<th>Duration</th>
-				<th>Sort Order</th>
+				<th>Sorting</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -57,6 +58,7 @@
 				
 				<tr>
 					<td>{{ $button->title }}</td>
+					<td>{{ $button->screen }}</td>
 					<td>{{ $button->tag }}</td>
 					<td>{{ $button->length }}</td>
 					<td>{{ $button->order }}</td>
