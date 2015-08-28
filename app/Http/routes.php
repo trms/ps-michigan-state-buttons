@@ -1,8 +1,12 @@
 <?php
 
+namespace Http;
+
 use App\Button;
+use App\ButtonBar;
 use App\RDA\RDA;
 use Illuminate\Http\Request;
+use \Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,34 +19,20 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function (Request $request) 
-{
 
-	$screen = $request->input('screen')?:'1';
-
-    $buttons = Button::where('screen','=',$screen)->orderBy('order')->get();
-
-	$marginLeft =  (100 - ($buttons->count() * 7))/ $buttons->count();
-
-    return view('buttons')->with(['buttons'=>$buttons,'marginLeft'=>$marginLeft ]);
-});
 
 
 Route::get('triggerVideo', ['as'=>'triggerVideo',function(Request $request)
 {
-	$button = Button::find($request->input('button'));
+	$button = Button::find($request->input('buttonId'));
 
 	$RDA = new RDA(config('RDA.user'),config('RDA.password'),config('RDA.server'));
 
-	$RDA->setBulletinTags($button->tag);
+	$RDA->setBulletinGuids($button->bulletin_GUID);
 
 	$RDA->setWeekdays();
 
-	$RDA->UpdatePage();
-
-	sleep($button->length+3);
-
-	$RDA->setWeekdays('');
+	$RDA->ExclusiveAlert = 'true';
 
 	$RDA->UpdatePage();
 
@@ -50,8 +40,23 @@ Route::get('triggerVideo', ['as'=>'triggerVideo',function(Request $request)
 
 }]);
 
+Route::get('cancelVideos',['as'=>'cancelVideos',function(Request $request)
+{
+	$buttonBar = ButtonBar::find($request->input('buttonBarId'));
+
+	$bulletins = array_map(function($button){
+		return $button->bulletin_GUID;
+	}, $buttonBar->buttons);
+
+	return $bulletins;
+
+	$RDA = new RDA(config('RDA.user'),config('RDA.password'),config('RDA.server'));
+
+}]);
+
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function(){
-	Route::resource('/','ButtonController@index');
+	Route::get('/',['uses'=>'ButtonBarController@index','as'=>'admin.index']);
+	Route::resource('buttonBar','ButtonBarController');
 	Route::resource('button','ButtonController');
 	Route::resource('users','UserController');
 });
@@ -68,3 +73,19 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 // Password reset routes...
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
+
+
+
+Route::get('/{title?}', function ($title=null) 
+{
+
+	$buttonBar = $title
+		? ButtonBar::where('title','=',$title)->first()
+		: ButtonBar::first();
+
+	if(!$buttonBar) return 'There is no bulletin bar with that title';
+
+	$marginLeft =  (100 - ($buttonBar->buttons->count() * 7))/ $buttonBar->buttons->count();
+
+    return view('buttons')->with(['buttonBar'=>$buttonBar,'marginLeft'=>$marginLeft ]);
+});

@@ -6,7 +6,7 @@
 
 
 @section('title')
-	Edit {{ $button->title }}
+	Create a New Button for "{{ $button->buttonBar->title }}"
 @stop
 
 
@@ -26,7 +26,7 @@
 
 
 @section('action')
-	{!! link_to_route('admin.button.index','back',[],['class'=>'btn btn-default']) !!}
+	{!! link_to_route('admin.buttonBar.show','back',['id'=>$button->buttonBar->id],['class'=>'btn btn-default']) !!}
 @stop
 
 
@@ -42,15 +42,10 @@
 	
 	{!! Form::open(['route'=>['admin.button.update',$button->id],'method'=>'put','class'=>'form']) !!}
 	
+		{!! Form::hidden('button_bar_id',$button->button_bar_id) !!}
 		
 		
 		<!-- Form Input -->
-		
-		
-			
-			
-			
-			<!-- Form Input -->
 			
 			<div class="form-group">
 				
@@ -59,30 +54,13 @@
 				{!! Form::text('title',$button->title,['class' => 'form-control','placeholder'=>'optional'] ) !!}
 			
 			</div>
-			
-			
-			
-			<!-- Form Input -->
+				
 			
 			<div class="form-group">
-				
-				{!! Form::label('tag','Bulletin Tag') !!}
-				
-				{!! Form::text('tag',$button->tag,['class' => 'form-control','placeholder'=>'required and make sure its unique per screen'] ) !!}
-			
+				<label for="icon">Button Icon</label>
+				{!! Form::select('icon',$icons,$button->icon,['class'=>'form-control']) !!}
 			</div>
-			
-			
-			
-			<!-- Form Input -->
-			
-			<div class="form-group">
-				
-				{!! Form::label('length','Bulletin Length') !!}
-				
-				{!! Form::text('length',$button->length,['class' => 'form-control','placeholder'=>'required'] ) !!}
-			
-			</div>
+
 			
 			<!-- Form Input -->
 			
@@ -90,11 +68,26 @@
 				
 				{!! Form::label('order','Sort Order') !!}
 				
-				{!! Form::text('order',$button->order,['class' => 'form-control','placeholder'=>'alphanumeric'] ) !!}
+				{!! Form::text('order','',['class' => 'form-control','placeholder'=>'alphanumeric'] ) !!}
 			
 			</div>
-		
-		
+			
+
+			<div class="form-group">
+				
+				<label for="bulletin_GUID">Bulletin</label>
+				
+				<select name="bulletin_GUID" id="bulletin_GUID" class="form-control">
+					
+					@foreach ($allBulletins as $bulletin)
+						<option value="{{ $bulletin['Description'] }}|{{ $bulletin['GUID'] }}" @if($bulletin['GUID'] === $button->bulletin_GUID) selected @endif>{{ $bulletin['Description'] }}</option>
+					@endforeach
+
+				</select>
+
+			</div>
+			
+			
 		
 		
 		<!-- Submit Button -->

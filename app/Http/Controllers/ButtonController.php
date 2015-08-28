@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Button;
+use App\ButtonBar;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\ButtonRequest;
@@ -10,15 +11,58 @@ use Illuminate\Http\Request;
 
 class ButtonController extends Controller
 {
+
+    public $RDA;
+
+    public $icons = [
+        "fa fa-ambulance" => '&#xf0f9; Ambulance',
+        "fa fa-archive" => '&#xf187; Archive',
+        "fa fa-area-chart" => '&#xf1fe; Area Chart',
+        "fa fa-automobile" => '&#xf1b9; Auto',
+        "fa fa-bank" => '&#xf19c; Bank',
+        "fa fa-bicycle" => '&#xf206; Bicycle',
+        "fa fa-book" => '&#xf02d; Book',
+        "fa fa-bullhorn" => '&#xf0a1; Bullhorn',
+        "fa fa-calendar" => '&#xf073; Calendar',
+        "fa fa-child" => '&#xf1ae; Child',
+        "fa fa-clock-o" => '&#xf017; Clock',
+        "fa fa-desktop" => '&#xf108; Desktop',
+        "fa fa-dribbble" => '&#xf17d; Sportsball',
+        "fa fa-envelope-o" => '&#xf003; Envelope',
+        "fa fa-eye" => '&#xf06e; Eye',
+        "fa fa-female" => '&#xf182; Female',
+        "fa fa-flask" => '&#xf0c3; Flask',
+        "fa fa-futbol-o" => '&#xf1e3; Futbol',
+        "fa fa-gavel" => '&#xf0e3; Gavel',
+        "fa fa-group" => '&#xf0c0; Group',
+        "fa fa-heartbeat" => '&#xf21e; Heartbeat',
+        "fa fa-hospital-o" => '&#xf0f8; Hospital',
+        "fa fa-institution" => '&#xf19c; Institution',
+        "fa fa-male" => '&#xf183; Male',
+        "fa fa-map-signs" => '&#xf277; Map Signs',
+        "fa fa-paint-brush" => '&#xf1fc; Paintbrush',
+        "fa fa-paper-plane" => '&#xf1d8; Paperplane',
+        "fa fa-paw" => '&#xf1b0; Paw',
+        "fa fa-plane" => '&#xf072; Plane',
+        "fa fa-print" => '&#xf02f; Print',
+        "fa fa-sitemap" => '&#xf0e8; Sitemap',
+        "fa fa-wheelchair" => '&#xf193; Wheelchair',
+    ];
+
+    public function __construct(ButtonBarController $buttonBarController)
+    {
+        $this->RDA = $buttonBarController->RDA;
+        view()->share('buttonBars',$buttonBarController->buttonBars);
+    }
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index()
+    public function index($buttonBar)
     {
 
-        $buttons = Button::orderBy('screen')->orderBy('order')->get();
+        $buttons = ButtonBar::find();
 
         return view()->make('button.index')->with(['buttons'=>$buttons]);
     }
@@ -28,9 +72,35 @@ class ButtonController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view()->make('button.create');
+        $barId = $request->input('barId');
+        if(!$barId) return redirect()->back()->with('warning','no button barId found in url');
+
+        $bar = ButtonBar::find($barId);
+
+        if(!$bar) return redirect()->route('admin.index')->with('warning',"no Button Bar found with id $barId");
+
+        $bulletins = $this->getNormalizedBulletinList($bar->zone_GUID);
+        
+        $alerts = $this->getNormalizedBulletinList($bar->alert_GUID);
+
+        $allBulletins = array_merge($bulletins,$alerts);
+
+        return view()->make('button.create')->with(['bar'=>$bar,'allBulletins'=>$allBulletins,'icons'=>$this->icons]);
+    }
+
+    private function is_assoc(array $array) {
+      return (bool)count(array_filter(array_keys($array), 'is_string'));
+    }
+
+    private function getNormalizedBulletinList($zoneID)
+    {
+        $this->RDA->setZoneIds($zoneID);
+        $bulletins = $this->RDA->GetBulletinList()[$zoneID];
+        $bulletins = isset($bulletins[$zoneID])?$bulletins[$zoneID]:$bulletins;
+        $bulletins = $this->is_assoc($bulletins)?[$bulletins]:$bulletins;
+        return $bulletins;
     }
 
     /**
@@ -41,13 +111,19 @@ class ButtonController extends Controller
      */
     public function store(ButtonRequest $request)
     {
+        $bulletin_name = explode('|', $request->input('bulletin_GUID'))[0];
+        $bulletin_GUID = explode('|', $request->input('bulletin_GUID'))[1];
+
         $button = Button::create([
             'title'=>$request->input('title'),
-            'tag'=>$request->input('tag'),
-            'length'=>$request->input('length'),
+            'button_bar_id'=>$request->input('button_bar_id'),
+            'bulletin_GUID'=>$bulletin_GUID,
+            'bulletin_name'=>$bulletin_name,
+            'order'=>$request->input('order'),
+            'icon'=>$request->input('icon'),
         ]);
 
-        return redirect()->route('admin.button.index')->with('message',"$button->title created");
+        return redirect()->route('admin.buttonBar.show',$button->button_bar_id)->with('message',"$button->title created");
     }
 
     /**
@@ -70,7 +146,14 @@ class ButtonController extends Controller
     public function edit($id)
     {
         $button = Button::find($id);
-        return view()->make('button.edit')->with(['button'=>$button]);        
+
+        $bulletins = $this->getNormalizedBulletinList($button->buttonBar->zone_GUID);
+        
+        $alerts = $this->getNormalizedBulletinList($button->buttonBar->alert_GUID);
+
+        $allBulletins = array_merge($bulletins,$alerts);
+
+        return view()->make('button.edit')->with(['allBulletins'=>$allBulletins,'button'=>$button,'icons'=>$this->icons]);
     }
 
     /**
@@ -83,12 +166,21 @@ class ButtonController extends Controller
     public function update(ButtonRequest $request, $id)
     {
         $button = Button::find($id);
+
+        $bulletin_name = explode('|', $request->input('bulletin_GUID'))[0];
+        $bulletin_GUID = explode('|', $request->input('bulletin_GUID'))[1];
+
+        
         $button->title = $request->input('title');
-        $button->tag = $request->input('tag');
-        $button->length = $request->input('length');
+        $button->button_bar_id = $request->input('button_bar_id');
+        $button->bulletin_GUID = $bulletin_GUID;
+        $button->bulletin_name = $bulletin_name;
+        $button->order = $request->input('order');
+        $button->icon = $request->input('icon');
+
         $button->save();
 
-        return redirect()->route('admin.button.index')->with('message',"$button->title edited");
+        return redirect()->route('admin.buttonBar.show',$button->button_bar_id)->with('message',"$button->title edited");
     }
 
     /**
@@ -102,6 +194,6 @@ class ButtonController extends Controller
         $button = Button::find($id);
         $button->delete();
 
-        return redirect()->route('admin.button.index')->with('message',"$button->title deleted");
+        return redirect()->route('admin.buttonBar.show',$button->button_bar_id)->with('warning',"$button->title deleted");
     }
 }

@@ -24,8 +24,8 @@ body {
   .button-container .button {
     width: 7%;
     display: inline-block; }
-    .button-container .button .button-img {
-      width: 100%; }
+    .button-container .button i {
+      font-size: 3em; }
     .button-container .button .button-title {
       margin-top: 0; }
 

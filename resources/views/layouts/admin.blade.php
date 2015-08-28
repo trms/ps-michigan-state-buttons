@@ -6,10 +6,10 @@
     <title>Founders Admin Panel</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/bootstrap.css') !!}">
-    {{-- <link rel="stylesheet" href="{!! asset('css/sb-admin-2.css') !!}"> --}}
+    <link rel="stylesheet" href="{!! asset('css/font-awesome.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/admin.css') !!}">
-    <script src="{!! asset('js/all.js') !!}"></script>
+    <script src="{!! asset('js/admin.js') !!}"></script>
 </head>
 <body>
     
@@ -65,14 +65,20 @@
           <div class="col-md-2">
                 <p class="nav-collapser visible-sm visible-xs"><span class="glyphicon glyphicon-th-list  pull-right" data-toggle="collapse" data-target=".nav" ></span></p>
             <div class="sidebar content-box" style="display: block;">
-                <ul class="nav collapse in">
-                    <!-- Main menu -->
+                @if(Auth::check())
+                  <ul class="nav collapse in">
+                      <!-- Main menu -->
 
-                    <li><a href="{{url('admin')}}"><span class="glyphicon glyphicon-dashboard"></span> Video Buttons</a></li>
+                      <li><a href="{{url('admin')}}"><span class="glyphicon glyphicon-dashboard"></span> Index</a></li>
 
-                    <li><a href="{{ route('admin.users.index') }}"><span class="glyphicon glyphicon-user"></span> Admin Users</a></li>
-                     
-                </ul>
+                      @foreach ($buttonBars as $bar)
+                        <li><a href="{{route('admin.buttonBar.show',$bar->id)}}">{{ $bar->title }}</a></li>
+                      @endforeach
+        
+                      <li><a href="{{ route('admin.users.index') }}"><span class="glyphicon glyphicon-user"></span> Admin Users</a></li>
+                       
+                  </ul>
+                @endif
              </div>
           </div>
           <div class="col-md-10">

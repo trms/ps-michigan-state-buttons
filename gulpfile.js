@@ -14,7 +14,8 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss');
     mix.sass('admin.scss');
-    mix.scripts(['../../../bower_components/jquery/dist/jquery.js','../../../bower_components/bootstrap/dist/js/bootstrap.min.js','app.js','admin.js']);
+    mix.scripts(['../../../bower_components/jquery/dist/jquery.js','../../../bower_components/bootstrap/dist/js/bootstrap.min.js','app.js']);
     mix.copy('bower_components/bootstrap/dist/css/bootstrap.css','public/css/bootstrap.css');
-    mix.copy('bower_components/startbootstrap-sb-admin-2/dist/css/sb-admin-2.css','public/css/sb-admin-2.css');
+    mix.copy('bower_components/font-awesome/css/font-awesome.css','public/css/font-awesome.css');
+    mix.copy('resources/assets/js/admin.js','public/js/admin.js');
 });

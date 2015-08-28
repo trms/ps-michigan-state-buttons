@@ -1,1 +1,1 @@
-{"version":3,"sources":["admin.scss"],"names":[],"mappings":"AAAA;EACC,eAAc,EADI","file":"admin.css","sourcesContent":[".content-box-large{\n\tfont-size:2em;\n}"],"sourceRoot":"/source/"}
+{"version":3,"sources":["admin.scss"],"names":[],"mappings":"AAAA;EACC,iBAAgB,EADE;;AAInB;EACC,2BAA0B,EADrB","file":"admin.css","sourcesContent":[".content-box-large{\n\tfont-size:1.2em;\n}\n\n#icon{\n\tfont-family:'FontAwesome';\n}"],"sourceRoot":"/source/"}

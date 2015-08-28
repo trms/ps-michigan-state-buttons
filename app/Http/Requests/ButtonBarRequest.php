@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class ButtonRequest extends Request
+class ButtonBarRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class ButtonRequest extends Request
     public function rules()
     {
         return [
-            
+            'title'=>'required|unique:button_bars,title,'.$this->route('button_bars')
         ];
     }
 }
