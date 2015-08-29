@@ -9,24 +9,48 @@ body {
   font-size: 24px; }
 
 .container {
-  width: 1920px;
-  background-color: black;
-  overflow: hidden; }
+  width: 1107px;
+  background-color: white;
+  overflow: hidden;
+  background-image: url("../img/bg.jpg");
+  position: relative; }
+  .container .close-btn {
+    position: absolute;
+    background-color: #96A1A1;
+    color: #19453B;
+    top: 10px;
+    right: 10px;
+    padding: 0.5em 2em;
+    border-radius: 15px; }
+    .container .close-btn.selected {
+      background-color: #19453B;
+      color: white; }
 
 .button-container {
   color: white;
-  background-color: black;
-  height: 200px;
+  height: 280px;
   width: 95%;
   margin: auto;
   padding-top: 5px;
   text-align: center; }
   .button-container .button {
-    width: 7%;
-    display: inline-block; }
-    .button-container .button i {
-      font-size: 3em; }
+    display: inline-block;
+    position: relative;
+    top: 75px; }
+    .button-container .button.selected .button-icon {
+      background-color: #19453B; }
+    .button-container .button .button-icon {
+      background-color: #11B14B;
+      width: 140px;
+      height: 140px;
+      display: table-cell;
+      vertical-align: middle;
+      border: 7px solid white;
+      border-radius: 200px;
+      font-size: 4em; }
     .button-container .button .button-title {
-      margin-top: 0; }
+      margin-top: 0;
+      font-size: .9em;
+      white-space: nowrap; }
 
 /*# sourceMappingURL=app.css.map */

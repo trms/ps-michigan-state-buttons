@@ -9220,28 +9220,38 @@ $(document).ready(function(){
 
 	$('.button').on('click',triggerVideo);
 
+	$('.close-btn').on('click',function(){
+		var _this = this;
+		$('.button').removeClass('selected');
+		resetBulletins();
+		$(this).addClass('selected');
+		setTimeout(function(){
+			$(_this).removeClass('selected');
+		},200)
+
+	});
+
+
 	resetBulletins();
 });
 
 function triggerVideo()
 {
-	$.get($(this).attr('data-url'),{buttonId:$(this).attr('data-target')},function(return){
-		console.log(return);
+
+	$('.button').removeClass('selected');
+	$(this).addClass('selected');
+	$.get($(this).attr('data-url'),{buttonId:$(this).attr('data-target')},function(result){
+		// console.log(result);
 	});
-	// $('.button').off('click');
-	// setTimeout(function(){$('.button').on('click',triggerVideo);},3000);
 }
 
 function resetBulletins()
 {
+	
 	var buttonBarId = $('.button-container').attr('data-target');
 	var url = $('.button-container').attr('data-url');
-	$.get(url,{buttonBarId:buttonBarId},function(return){
-		console.log(return);
+	$.get(url,{buttonBarId:buttonBarId},function(result){
+		// console.log(result);
 	});
-}
-function deleteSubmit()
-{
-	return confirm('are you sure? this cannot be undone');
 }
 //# sourceMappingURL=all.js.map

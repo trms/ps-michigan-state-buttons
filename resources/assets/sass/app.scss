@@ -1,5 +1,9 @@
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+$dark-green: #19453B;
+$green: #11B14B;
+$grey:	#96A1A1;
+
 *{
 	box-sizing:border-box;
 }
@@ -13,30 +17,61 @@ body{
 }
 
 .container{
-	width:1920px;
-	background-color: black;
+	width:1107px;
+	background-color: white;
 	overflow:hidden;
+	background-image: url("../img/bg.jpg");
+	position: relative;
+
+	.close-btn{
+		position: absolute;
+		background-color: $grey;
+		color:$dark-green;
+		top:10px;
+		right:10px;
+		padding:.5em 2em;
+		border-radius:15px;
+		&.selected{
+			background-color: $dark-green;
+			color:white;
+		}
+	}
 }
 
 
 .button-container{
 	color:white;
-	background-color: black;
-	height:200px;
+	height:280px;
 	width:95%;
 	margin:auto;
 	padding-top:5px;;
 	text-align: center;
 	.button{
-		width:7%;
+		// width:7%;
 		display: inline-block;
+		position: relative;
+		top:75px;
 
-		i{
-			font-size: 3em;
+		&.selected{
+			.button-icon{
+				background-color: $dark-green;
+			}
+		}
+		.button-icon{
+			background-color: $green;
+			width:140px;
+			height:140px;
+			display: table-cell;
+			vertical-align: middle;
+			border:7px solid white;
+			border-radius: 200px;
+			font-size: 4em;
 		}
 
 		.button-title{
 			margin-top:0;
+			font-size: .9em;
+			white-space: nowrap;
 		}
 
 	}

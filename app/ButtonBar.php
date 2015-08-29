@@ -15,4 +15,9 @@ class ButtonBar extends Model
     {
     	return $this->hasMany('App\Button');
     }
+
+    public function bulletins()
+    {
+    	return $this->hasMany('App\Button')->lists('bulletin_GUID')->toArray();
+    }
 }

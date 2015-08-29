@@ -32,7 +32,7 @@ Route::get('triggerVideo', ['as'=>'triggerVideo',function(Request $request)
 
 	$RDA->setWeekdays();
 
-	$RDA->ExclusiveAlert = 'true';
+	$RDA->isExclusiveAlert(true);
 
 	$RDA->UpdatePage();
 
@@ -44,13 +44,15 @@ Route::get('cancelVideos',['as'=>'cancelVideos',function(Request $request)
 {
 	$buttonBar = ButtonBar::find($request->input('buttonBarId'));
 
-	$bulletins = array_map(function($button){
-		return $button->bulletin_GUID;
-	}, $buttonBar->buttons);
-
-	return $bulletins;
-
 	$RDA = new RDA(config('RDA.user'),config('RDA.password'),config('RDA.server'));
+
+	$RDA->setBulletinGuids($buttonBar->bulletins());
+
+	$RDA->setWeekdays('');
+
+	$RDA->UpdatePage();
+
+	return $RDA->getLastError();
 
 }]);
 
