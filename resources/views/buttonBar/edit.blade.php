@@ -67,14 +67,14 @@
 				</select>
 			</div>
 			
-			<div class="form-group">
+			{{-- <div class="form-group">
 				<label for="alert">Alert Zone</label>
 				<select name="alert_GUID" id="alert_GUID" class="form-control">
 					@foreach ($alertZones as $zone)
 						<option value="{{ $zone['ZoneID'] }}" @if($bar->alert_GUID === $zone['ZoneID']) selected @endif>{{ $zone['ZoneName'] }}</option>
 					@endforeach
 				</select>
-			</div>
+			</div> --}}
 			
 		
 		

@@ -10,7 +10,7 @@
 			@foreach ($buttonBar->buttons as $key=>$button)
 				<div class="button" data-target="{{ $button->id }}" data-url="{!! route('triggerVideo') !!}" @if($key !== 0) style="margin-left:{{ $marginLeft }}%" @endif>
 					<div class="button-icon">
-						<i class="{{ $button->icon }}"></i>
+						<i class="fa {{ $button->icon }}"></i>
 					</div>
 					<p class="button-title">{{ $button->title }}</p>
 				</div>

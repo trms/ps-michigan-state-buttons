@@ -14,7 +14,7 @@ class CreateButtonBarsTable extends Migration
     {
         Schema::create('button_bars',function(Blueprint $table){
             $table->increments('id');
-            $table->string('alert_GUID');
+            $table->string('alert_GUID')->nullable();
             $table->string('zone_GUID');
             $table->string('title');
             $table->timestamps();

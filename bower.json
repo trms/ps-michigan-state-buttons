@@ -17,7 +17,8 @@
     "startbootstrap-sb-admin-2": "~1.0.6"
   },
   "resolutions": {
-    "font-awesome": "~4.4.0"
+    "font-awesome": "~4.4.0",
+    "jquery": "~2.1.4"
   },
   "devDependencies": {
     "font-awesome": "~4.4.0"

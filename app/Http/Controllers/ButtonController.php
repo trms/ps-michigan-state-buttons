@@ -14,41 +14,7 @@ class ButtonController extends Controller
 
     public $RDA;
 
-    public $icons = [
-        "fa fa-ambulance" => '&#xf0f9; Ambulance',
-        "fa fa-archive" => '&#xf187; Archive',
-        "fa fa-area-chart" => '&#xf1fe; Area Chart',
-        "fa fa-automobile" => '&#xf1b9; Auto',
-        "fa fa-bank" => '&#xf19c; Bank',
-        "fa fa-bicycle" => '&#xf206; Bicycle',
-        "fa fa-book" => '&#xf02d; Book',
-        "fa fa-bullhorn" => '&#xf0a1; Bullhorn',
-        "fa fa-calendar" => '&#xf073; Calendar',
-        "fa fa-child" => '&#xf1ae; Child',
-        "fa fa-clock-o" => '&#xf017; Clock',
-        "fa fa-desktop" => '&#xf108; Desktop',
-        "fa fa-dribbble" => '&#xf17d; Sportsball',
-        "fa fa-envelope-o" => '&#xf003; Envelope',
-        "fa fa-eye" => '&#xf06e; Eye',
-        "fa fa-female" => '&#xf182; Female',
-        "fa fa-flask" => '&#xf0c3; Flask',
-        "fa fa-futbol-o" => '&#xf1e3; Futbol',
-        "fa fa-gavel" => '&#xf0e3; Gavel',
-        "fa fa-group" => '&#xf0c0; Group',
-        "fa fa-heartbeat" => '&#xf21e; Heartbeat',
-        "fa fa-hospital-o" => '&#xf0f8; Hospital',
-        "fa fa-institution" => '&#xf19c; Institution',
-        "fa fa-male" => '&#xf183; Male',
-        "fa fa-map-signs" => '&#xf277; Map Signs',
-        "fa fa-paint-brush" => '&#xf1fc; Paintbrush',
-        "fa fa-paper-plane" => '&#xf1d8; Paperplane',
-        "fa fa-paw" => '&#xf1b0; Paw',
-        "fa fa-plane" => '&#xf072; Plane',
-        "fa fa-print" => '&#xf02f; Print',
-        "fa fa-sitemap" => '&#xf0e8; Sitemap',
-        "fa fa-wheelchair" => '&#xf193; Wheelchair',
-    ];
-
+    
     public function __construct(ButtonBarController $buttonBarController)
     {
         $this->RDA = $buttonBarController->RDA;
@@ -83,11 +49,11 @@ class ButtonController extends Controller
 
         $bulletins = $this->getNormalizedBulletinList($bar->zone_GUID);
         
-        $alerts = $this->getNormalizedBulletinList($bar->alert_GUID);
+        // $alerts = $this->getNormalizedBulletinList($bar->alert_GUID);
 
-        $allBulletins = array_merge($bulletins,$alerts);
+        // $allBulletins = array_merge($bulletins,$alerts);
 
-        return view()->make('button.create')->with(['bar'=>$bar,'allBulletins'=>$allBulletins,'icons'=>$this->icons]);
+        return view()->make('button.create')->with(['bar'=>$bar,'allBulletins'=>$bulletins]);
     }
 
     private function is_assoc(array $array) {
@@ -149,11 +115,11 @@ class ButtonController extends Controller
 
         $bulletins = $this->getNormalizedBulletinList($button->buttonBar->zone_GUID);
         
-        $alerts = $this->getNormalizedBulletinList($button->buttonBar->alert_GUID);
+        // $alerts = $this->getNormalizedBulletinList($button->buttonBar->alert_GUID);
 
-        $allBulletins = array_merge($bulletins,$alerts);
+        // $allBulletins = array_merge($bulletins,$alerts);
 
-        return view()->make('button.edit')->with(['allBulletins'=>$allBulletins,'button'=>$button,'icons'=>$this->icons]);
+        return view()->make('button.edit')->with(['allBulletins'=>$bulletins,'button'=>$button]);
     }
 
     /**

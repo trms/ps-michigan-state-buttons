@@ -56,10 +56,18 @@
 			</div>
 				
 			
+			
+			<!-- Form Input -->
+			
 			<div class="form-group">
-				<label for="icon">Button Icon</label>
-				{!! Form::select('icon',$icons,$button->icon,['class'=>'form-control']) !!}
+				
+				{!! Form::label('icon','Button Icon') !!}
+				
+				{!! Form::text('icon',$button->icon,['class' => 'form-control','id'=>'icons'] ) !!}
+			
 			</div>
+			
+			
 
 			
 			<!-- Form Input -->

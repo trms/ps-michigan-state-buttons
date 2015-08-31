@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
-    <title>Founders Admin Panel</title>
+    <title>Michigain State Button Bar Admin</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{!! asset('css/bootstrap.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/font-awesome.css') !!}">
+    <link rel="stylesheet" href="{!! asset('css/fontawesome-iconpicker.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/styles.css') !!}">
     <link rel="stylesheet" href="{!! asset('css/admin.css') !!}">
     <script src="{!! asset('js/admin.js') !!}"></script>
@@ -22,7 +23,7 @@
                <div class="col-md-8">
                   <!-- Logo -->
                   <div class="logo">
-                     <h1><a href="">TRMS Admin</a></h1>
+                     <h1><a href="">Button Bar Admin</a></h1>
                   </div>
                </div>
                <div class="col-md-4">

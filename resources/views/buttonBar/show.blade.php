@@ -61,7 +61,7 @@
 						<td>{{ $button->title }}</td>
 						<td>{{ $button->bulletin_name }}</td>
 						<td>{{ $button->order }}</td>
-						<td><i class="{{ $button->icon }}"></i></td>
+						<td><i class="fa {{ $button->icon }}"></i></td>
 						<td>{!! link_to_route('admin.button.edit','edit',[$button->id],['class'=>'btn btn-primary']) !!}</td>
 						<td>
 							

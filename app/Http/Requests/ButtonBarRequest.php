@@ -24,7 +24,7 @@ class ButtonBarRequest extends Request
     public function rules()
     {
         return [
-            'title'=>'required|unique:button_bars,title,'.$this->route('button_bars')
+            'title'=>'required|unique:button_bars,title,'.$this->route('buttonBar')
         ];
     }
 }

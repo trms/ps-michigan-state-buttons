@@ -44,6 +44,7 @@
 			<tr>
 				<th>Title</th>
 				<th>Button Count</th>
+				<th>Interactive URL</th>
 				<th></th>
 				<th></th>
 			</tr>
@@ -56,6 +57,7 @@
 				<tr>
 					<td>{{ $bar->title }}</td>
 					<td>{{ $bar->buttons->count() }}</td>
+					<td>{!! url('/') !!}/{{ $bar->title }}</td>
 					<td>{!! link_to_route('admin.buttonBar.edit','edit',[$bar->id],['class'=>'btn btn-primary']) !!}</td>
 					<td>
 						
