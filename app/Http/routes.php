@@ -87,7 +87,18 @@ Route::get('/{title?}', function ($title=null)
 
 	if(!$buttonBar) return 'There is no bulletin bar with that title';
 
-	$marginLeft =  (100 - ($buttonBar->buttons->count() * 15))/ $buttonBar->buttons->count();
+	if($buttonBar->buttons->count())
+	{
+		$marginLeft =  (100 - ($buttonBar->buttons->count() * 15))/ $buttonBar->buttons->count();
+	}
+	else
+	{
+		$marginLeft = 0;
+	}
 
     return view('buttons')->with(['buttonBar'=>$buttonBar,'marginLeft'=>$marginLeft ]);
 });
+
+
+
+

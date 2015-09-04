@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
+use App\Http\Controllers\ButtonBarController;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
-
 use Auth;
+use Illuminate\Http\Request;
 
 
 class UserController extends Controller
 {
+
+    public function __construct(ButtonBarController $buttonBarController)
+    {
+        $this->RDA = $buttonBarController->RDA;
+        view()->share('buttonBars',$buttonBarController->buttonBars);
+    }
     /**
      * Display a listing of the resource.
      *
