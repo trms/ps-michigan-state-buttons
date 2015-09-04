@@ -10,9 +10,11 @@
 			<p class="alert alert-danger">{{Session::get('error')}}</p>
 		@endif
 	
-		@foreach($errors->all() as $key=>$e)
-			<p class="alert alert-danger">{{$e}}</p>
-		@endforeach
+		@if (isset($errors))
+			@foreach($errors->all() as $key=>$e)
+				<p class="alert alert-danger">{{$e}}</p>
+			@endforeach
+		@endif
 					       
 	</div>
 </div>

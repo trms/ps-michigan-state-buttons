@@ -23,7 +23,7 @@
                <div class="col-md-8">
                   <!-- Logo -->
                   <div class="logo">
-                     <h1><a href="">Button Bar Admin</a></h1>
+                     <h1><a href="{!! url('admin') !!}">Button Bar Admin</a></h1>
                   </div>
                </div>
                <div class="col-md-4">
